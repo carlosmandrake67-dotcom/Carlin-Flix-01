@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#080808">
+<title>Carlin Flix</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">CARLIN <span>FLIX</span></div>
+  <button id="adminOpen" class="iconbtn" aria-label="Abrir painel administrativo">⚙</button>
+</header>
+<main>
+  <section class="hero" id="hero">
+    <div class="hero-shade"></div>
+    <div class="hero-content">
+      <span class="eyebrow">SEU CINEMA, DO SEU JEITO</span>
+      <h1 id="heroTitle">Descubra sua próxima história.</h1>
+      <p id="heroDesc">Filmes e séries em um só lugar.</p>
+      <button id="heroPlay" class="primary">▶ Explorar catálogo</button>
+    </div>
+  </section>
+  <section class="toolbar">
+    <input id="search" type="search" placeholder="Buscar filmes e séries..." aria-label="Buscar">
+    <select id="categoryFilter" aria-label="Filtrar categoria"><option value="Todas">Todas as categorias</option></select>
+  </section>
+  <div id="rows"></div>
+  <section id="empty" class="empty">
+    <div class="empty-icon">🎬</div><h2>Seu catálogo começa aqui</h2>
+    <p>Abra o painel administrativo para adicionar títulos e escolher capas, categorias e vídeos autorizados.</p>
+    <button class="secondary" id="emptyAdmin">Abrir painel admin</button>
+  </section>
+</main>
+<footer>CARLIN FLIX <span>•</span> Um projeto independente</footer>
+
+<div class="modal hidden" id="adminModal">
+  <div class="dialog">
+    <button class="close" data-close="adminModal">×</button>
+    <div id="loginView">
+      <div class="modal-mark">CF</div><h2>Painel administrativo</h2>
+      <p class="muted">Entre para gerenciar seu catálogo neste dispositivo.</p>
+      <form id="loginForm">
+        <label for="adminPassword">Senha de administrador</label>
+        <input id="adminPassword" type="password" autocomplete="current-password" placeholder="Digite a senha" required>
+        <button class="primary full" type="submit">Entrar</button>
+        <p id="loginError" class="error"></p>
+      </form>
+      <p class="small-note">Protótipo local: a senha e os dados não substituem autenticação de servidor.</p>
+    </div>
+    <div id="adminView" class="hidden">
+      <h2>Gerenciar catálogo</h2>
+      <p class="muted">Os itens ficam salvos neste aparelho. Para publicar para todos, será necessário backend e armazenamento online.</p>
+      <form id="movieForm">
+        <input id="movieId" type="hidden">
+        <label for="movieTitle">Nome do filme/série *</label><input id="movieTitle" maxlength="100" required placeholder="Ex.: Minha aventura">
+        <label for="movieDescription">Descrição</label><textarea id="movieDescription" maxlength="500" placeholder="Sinopse curta"></textarea>
+        <div class="two">
+          <div><label for="movieCategory">Categoria *</label><input id="movieCategory" maxlength="40" required placeholder="Ação, comédia..."></div>
+          <div><label for="movieYear">Ano</label><input id="movieYear" type="number" min="1900" max="2100" placeholder="2026"></div>
+        </div>
+        <label for="movieCover">Imagem de capa (arquivo ou URL)</label><input id="movieCover" type="file" accept="image/*">
+        <input id="movieCoverUrl" type="url" placeholder="Ou cole uma URL de imagem (opcional)">
+        <label for="movieVideo">Vídeo do aparelho (opcional)</label><input id="movieVideo" type="file" accept="video/*">
+        <p class="small-note">Arquivos locais têm limites de armazenamento do navegador e não são enviados para a internet. Use apenas vídeos e imagens que você tenha direito de distribuir.</p>
+        <label for="movieStream">Link de streaming autorizado (opcional)</label><input id="movieStream" type="url" placeholder="https://...">
+        <button class="primary full" type="submit">Salvar título</button>
+        <button class="secondary full hidden" type="button" id="cancelEdit">Cancelar edição</button>
+      </form>
+      <h3>Seus títulos</h3><div id="adminList" class="admin-list"></div>
+      <div class="admin-actions"><button id="exportData" class="secondary">Exportar catálogo</button><button id="logout" class="secondary">Sair</button></div>
+    </div>
+  </div>
+</div>
+<div class="modal hidden" id="playerModal">
+  <div class="dialog player-dialog">
+    <button class="close" data-close="playerModal">×</button>
+    <div id="playerContent"></div>
+  </div>
+</div>
+<div class="toast hidden" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
